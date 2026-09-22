@@ -1,5 +1,10 @@
-node_modules/
-.project_id
-.github_repo
+venv/
+__pycache__/
+*.pyc
+*.pyo
 .env
-.env.*
+suryasetu.db
+test_suryasetu.db
+uploads/clients/
+*.log
+.pytest_cache/
