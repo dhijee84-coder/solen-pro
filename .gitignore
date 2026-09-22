@@ -1,10 +1,31 @@
-venv/
+# Node
+node_modules/
+dist/
+package-lock.json
+
+# Python
 __pycache__/
 *.pyc
 *.pyo
+*.pyd
 .env
-suryasetu.db
-test_suryasetu.db
-uploads/clients/
-*.log
-.pytest_cache/
+.env.local
+.venv/
+env/
+venv/
+
+# Uploads / data
+uploads/
+*.db
+*.sqlite
+
+# Build artifacts
+.vite/
+*.tsbuildinfo
+
+# Vercel
+.vercel/output/
+
+# OS
+.DS_Store
+Thumbs.db
