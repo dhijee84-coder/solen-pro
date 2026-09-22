@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}SuryaSetu — Solar capacity management{% endblock %}
+{% block content %}
+<header class="fingers" style="border-bottom:1px solid var(--edge);padding:16px 26px;display:flex;justify-content:space-between;align-items:center;background:var(--wafer2)">
+  <div style="display:flex;align-items:center;gap:10px">
+    <span style="width:30px;height:30px;border:1px solid var(--flux);border-radius:4px;display:flex;align-items:center;justify-content:center;color:var(--flux)">
+      <svg class="ico" style="width:16px;height:16px" viewBox="0 0 24 24"><use href="#i-sun"/></svg></span>
+    <span class="disp" style="font-weight:700;font-size:16px">SURYA<span style="color:var(--flux)">SETU</span></span>
+  </div>
+  <div style="display:flex;gap:10px">
+    <a class="btn sm" href="/staff-login">Staff sign in</a>
+    <a class="btn flux sm" href="/login">Client sign in</a>
+  </div>
+</header>
+
+<section class="hero" style="padding:80px 26px 70px">
+  <div style="max-width:720px;margin:0 auto;text-align:center">
+    <div class="eyebrow">Managed solar capacity · Karnataka</div>
+    <h1 class="disp" style="font-size:44px;font-weight:600;line-height:1.15;margin:16px 0">
+      Solar energy generation, without owning a rooftop plant.</h1>
+    <p style="color:var(--mute);font-size:16px;max-width:560px;margin:0 auto 26px">
+      SuryaSetu helps clients participate in solar energy generation through managed solar
+      projects and allocated solar capacity. Register, get verified, and track your allocated
+      panels from installation through to daily generation.</p>
+    <a class="btn flux" href="/login">Get started</a>
+  </div>
+</section>
+
+<section style="padding:60px 26px;max-width:1000px;margin:0 auto">
+  <h2 class="disp" style="font-size:24px;font-weight:600;margin-bottom:24px">How allocation works</h2>
+  <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr))">
+    <div class="card pad"><div class="disp" style="font-weight:600;margin-bottom:8px">1. Register &amp; verify</div>
+      <p style="color:var(--mute);font-size:13.5px">Sign up with your mobile number, confirm PAN and Aadhaar, and upload your electricity bill.</p></div>
+    <div class="card pad"><div class="disp" style="font-weight:600;margin-bottom:8px">2. Get allocated capacity</div>
+      <p style="color:var(--mute);font-size:13.5px">We size a plant for your usage and allocate panels from an active SuryaSetu project on a first-in, first-out basis.</p></div>
+    <div class="card pad"><div class="disp" style="font-weight:600;margin-bottom:8px">3. Track installation</div>
+      <p style="color:var(--mute);font-size:13.5px">Follow six installation stages from sign-off to full commissioning, with payments tied to each milestone.</p></div>
+    <div class="card pad"><div class="disp" style="font-weight:600;margin-bottom:8px">4. Monitor generation</div>
+      <p style="color:var(--mute);font-size:13.5px">See daily, monthly and lifetime generation from your allocated capacity, along with CO₂ avoided.</p></div>
+  </div>
+</section>
+
+<section style="padding:20px 26px 80px;max-width:1000px;margin:0 auto">
+  <div class="card pad" style="border-color:var(--edge2)">
+    <p style="color:var(--mute);font-size:12.5px;margin:0">
+      This is a business-management prototype. Statements here do not constitute regulatory,
+      net-metering, or subsidy guarantees — actual terms depend on your DISCOM and applicable
+      government schemes, configured separately by SuryaSetu administrators.</p>
+  </div>
+</section>
+{% endblock %}

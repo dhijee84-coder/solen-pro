@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block title %}Staff sign in — Solan{% endblock %}
+{% block content %}
+<div class="gate hero">
+  <div class="gate-l">
+    <div style="display:flex;align-items:center;gap:10px">
+      <span class="logo-mark">
+        <svg class="ico" style="width:18px;height:18px" viewBox="0 0 24 24"><use href="#i-sun"/></svg>
+      </span>
+      <span class="disp" style="font-weight:700;font-size:17px">SOL<span style="color:var(--flux)">AN</span></span>
+    </div>
+    <div>
+      <div class="eyebrow">Operations console</div>
+      <a href="/" style="font-size:12.5px;color:var(--flux);display:inline-block;margin-top:10px">← Public website</a>
+      <a href="/login" style="font-size:12.5px;color:var(--mute);display:inline-block;margin-top:10px;margin-left:14px">Client sign in →</a>
+    </div>
+  </div>
+  <div class="gate-r">
+    <div style="width:100%">
+      <div style="display:flex;justify-content:flex-end;margin-bottom:16px">{% include "partials/theme_toggle.html" %}</div>
+      <h2 class="disp" style="font-size:25px;font-weight:600;margin-bottom:6px">Admin sign in</h2>
+      <p style="color:var(--mute);font-size:13.5px;margin:0 0 24px">For Admin, Super Admin and Primary Admin accounts.</p>
+      <label class="lab" for="f-user">Username</label>
+      <input id="f-user" class="field" placeholder="admin" style="margin-bottom:14px">
+      <label class="lab" for="f-pass">Password</label>
+      <input id="f-pass" type="password" class="field" placeholder="••••••••">
+      <div class="err" id="err"></div>
+      <button class="btn flux wide" style="margin-top:16px" onclick="doLogin()">Sign in</button>
+      <div class="card pad" style="margin-top:22px;font-size:12.5px;color:var(--mute)">
+        <div class="eyebrow" style="margin-bottom:8px">Seeded development accounts</div>
+        <div class="mono">primary / ChangeMe123!</div>
+        <div class="mono">superadmin / ChangeMe123!</div>
+        <div class="mono">admin / ChangeMe123!</div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+{% block extra_scripts %}
+<script>
+async function doLogin() {
+  const username = document.getElementById("f-user").value.trim();
+  const password = document.getElementById("f-pass").value;
+  const err = document.getElementById("err");
+  err.textContent = "";
+  try {
+    const r = await api("/api/auth/admin/login", { method: "POST", body: { username, password } });
+    const role = r.user.role;
+    if (role === "PRIMARY_ADMIN") window.location.href = "/primary-admin/dashboard";
+    else if (role === "SUPER_ADMIN") window.location.href = "/super-admin/dashboard";
+    else window.location.href = "/admin/dashboard";
+  } catch (e) { err.textContent = e.message; }
+}
+document.getElementById("f-pass").addEventListener("keydown", e => { if (e.key === "Enter") doLogin(); });
+</script>
+{% endblock %}

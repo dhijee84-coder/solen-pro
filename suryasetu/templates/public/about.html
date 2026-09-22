@@ -1,0 +1,37 @@
+{% extends "public/base_public.html" %}
+{% block title %}About Us — Solan{% endblock %}
+{% block content %}
+<section class="page-hero" style="background-image:linear-gradient(90deg,rgba(15,23,42,.82),rgba(15,23,42,.35)),url('/static/img/hero-farm.jpg')">
+  <div class="page-hero-inner">
+    <p class="eyebrow">ABOUT US</p>
+    <h1 class="disp">Solar farms on open land. Panels you own.</h1>
+  </div>
+</section>
+<section class="pub-section">
+  <div class="intro-grid">
+    <div><img src="/static/img/hero-plant.jpg" alt="Solan farm operations"></div>
+    <div>
+      <p class="eyebrow blue">WHO WE ARE</p>
+      <h2 class="disp">Solan</h2>
+      <p class="sub" id="about-body" style="margin-bottom:0">Solan develops solar farms on empty land. Clients buy panels at those farms. We install, maintain and operate the plant. You never host equipment on your house — you buy capacity, then pay for the energy those panels generate.</p>
+    </div>
+  </div>
+  <div class="pub-grid" style="margin-top:48px">
+    <div class="pub-card"><h3>Mission</h3><p id="about-mission">Let people own solar capacity without rooftop construction. Fair panel sales, farm-side operations, usage-based energy billing.</p></div>
+    <div class="pub-card"><h3>Vision</h3><p id="about-vision">A trusted farm operator: our land, your panels, our maintenance, your generation.</p></div>
+    <div class="pub-card"><h3>What we do not do</h3><p>We do not mount panels on homes, factories or rooftops. All hardware stays on Solan farms.</p></div>
+  </div>
+</section>
+{% endblock %}
+{% block extra_scripts %}
+<script>
+(async () => {
+  try {
+    const s = await api('/api/public/settings');
+    if (s.about_body) document.getElementById('about-body').textContent = s.about_body;
+    if (s.about_mission) document.getElementById('about-mission').textContent = s.about_mission;
+    if (s.about_vision) document.getElementById('about-vision').textContent = s.about_vision;
+  } catch (e) {}
+})();
+</script>
+{% endblock %}

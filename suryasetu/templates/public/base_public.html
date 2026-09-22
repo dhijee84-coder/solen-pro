@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script>
+(function(){
+  try {
+    var t = localStorage.getItem("solan-theme");
+    if (t !== "light" && t !== "dark") {
+      t = (window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches) ? "light" : "dark";
+    }
+    document.documentElement.setAttribute("data-theme", t);
+  } catch (e) {}
+})();
+</script>
+<title>{% block title %}Solan — Buy solar panels. We run the farm.{% endblock %}</title>
+<meta name="description" content="{% block meta_description %}Solan builds solar farms on open land. You buy panels. We install, maintain and sell you the energy those panels generate.{% endblock %}">
+<meta property="og:title" content="{% block og_title %}Solan{% endblock %}">
+<meta property="og:description" content="{% block og_description %}Company-owned solar farms. Client-owned panels. Energy billed on usage.{% endblock %}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/css/style.css">
+<link rel="stylesheet" href="/static/css/public.css">
+{% block extra_head %}{% endblock %}
+</head>
+<body class="public-site">
+{% include "partials/icons.html" %}
+<div id="ann-banner" class="pub-ann" hidden></div>
+<header class="pub-header">
+  <div class="pub-header-inner">
+    <a href="/" class="pub-logo">
+      <span class="pub-logo-mark" id="logo-mark"><svg class="ico" viewBox="0 0 24 24"><use href="#i-sun"/></svg></span>
+      <span class="disp">SOL<span class="flux">AN</span></span>
+    </a>
+    <nav class="pub-nav" id="pub-nav">
+      <a href="/about">About Us</a>
+      <a href="/solar">Our Farms</a>
+      <a href="/how-it-works">How it works</a>
+      <a href="/services">Services</a>
+      <a href="/projects">Projects</a>
+      <a href="/faq">FAQ</a>
+      <a href="/contact">Contact Us</a>
+      <a class="nav-mobile-only" href="/login">Client Login</a>
+      <a class="nav-mobile-only" href="/staff-login">Staff Login</a>
+    </nav>
+    <div class="pub-header-actions">
+      {% include "partials/theme_toggle.html" %}
+      <a class="btn sm hide-sm" href="/staff-login">Staff</a>
+      <a class="btn flux sm" href="/login">Client Login</a>
+      <button class="pub-menu-btn" type="button" onclick="document.getElementById('pub-nav').classList.toggle('open')" aria-label="Menu">☰</button>
+    </div>
+  </div>
+</header>
+<main>
+{% block content %}{% endblock %}
+</main>
+<footer class="pub-footer" id="media">
+  <div class="pub-footer-inner">
+    <div>
+      <div class="disp" style="font-weight:700;font-size:16px;margin-bottom:8px">SOL<span class="flux">AN</span></div>
+      <p class="muted" id="footer-text">We own the land and the farm. You own the panels. We maintain everything and bill energy on usage.</p>
+    </div>
+    <div>
+      <div class="eyebrow">Explore</div>
+      <a href="/about">About Us</a>
+      <a href="/solar">Our Farms</a>
+      <a href="/how-it-works">How it works</a>
+      <a href="/projects">Projects</a>
+    </div>
+    <div>
+      <div class="eyebrow">Portals</div>
+      <a href="/login">Client Login</a>
+      <a href="/staff-login">Staff Login</a>
+      <a href="/faq">FAQ</a>
+      <a href="/contact">Contact Us</a>
+    </div>
+    <div>
+      <div class="eyebrow">Contact</div>
+      <p class="muted" id="footer-email">hello@solan.local</p>
+      <p class="muted" id="footer-phone">+91 44 4000 1234</p>
+    </div>
+  </div>
+  <div class="pub-footer-bottom">
+    <span>© <span id="year"></span> Solan. All rights reserved.</span>
+  </div>
+</footer>
+<div class="cookie" id="cookie-bar" hidden>
+  <p>This website uses cookies to keep the site working and remember your preferences.</p>
+  <div>
+    <button type="button" onclick="acceptCookies()">Accept</button>
+    <button type="button" onclick="acceptCookies()">Decline</button>
+  </div>
+</div>
+<script src="/static/js/common.js"></script>
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+if (!localStorage.getItem('ss_cookie')) document.getElementById('cookie-bar').hidden = false;
+function acceptCookies() {
+  localStorage.setItem('ss_cookie', '1');
+  document.getElementById('cookie-bar').hidden = true;
+}
+(async () => {
+  try {
+    const s = await api('/api/public/settings');
+    if (s.company_email || s.support_email) document.getElementById('footer-email').textContent = s.support_email || s.company_email;
+    if (s.company_phone || s.support_phone) document.getElementById('footer-phone').textContent = s.support_phone || s.company_phone;
+    if (s.footer_text) document.getElementById('footer-text').textContent = s.footer_text;
+    if (s.brand_logo_url) {
+      const mark = document.getElementById('logo-mark');
+      mark.innerHTML = `<img src="${s.brand_logo_url}" alt="" style="width:100%;height:100%;object-fit:contain">`;
+    }
+    if (s.brand_favicon_url) {
+      let link = document.querySelector('link[rel="icon"]');
+      if (!link) { link = document.createElement('link'); link.rel = 'icon'; document.head.appendChild(link); }
+      link.href = s.brand_favicon_url;
+    }
+  } catch (e) {}
+  try {
+    const anns = await api('/api/public/announcements');
+    if (anns.length) {
+      const a = anns[0];
+      const el = document.getElementById('ann-banner');
+      el.hidden = false;
+      el.innerHTML = `<strong>${esc(a.title)}</strong> <span>${esc(a.message)}</span> ${a.cta_url ? `<a href="${esc(a.cta_url)}">${esc(a.cta_text || 'Learn more')}</a>` : ''}`;
+    }
+  } catch (e) {}
+})();
+</script>
+{% block extra_scripts %}{% endblock %}
+</body>
+</html>

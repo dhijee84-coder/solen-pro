@@ -1,0 +1,33 @@
+{% extends "public/base_public.html" %}
+{% block title %}Projects — Solan{% endblock %}
+{% block content %}
+<section class="page-hero" style="background-image:linear-gradient(90deg,rgba(15,23,42,.82),rgba(15,23,42,.35)),url('/static/img/hero-farm.jpg')">
+  <div class="page-hero-inner">
+    <p class="eyebrow">SOLAR FARMS</p>
+    <h1 class="disp">Open-land sites you can buy into</h1>
+  </div>
+</section>
+<section class="pub-section">
+  <p class="sub">Public Solan farms only. Panels are sold from these sites. Private client, payment and document data is never shown here.</p>
+  <div class="pub-grid" id="prj-list"><p class="muted">Loading…</p></div>
+</section>
+{% endblock %}
+{% block extra_scripts %}
+<script>
+(async () => {
+  try {
+    const projects = await api('/api/public/projects');
+    const el = document.getElementById('prj-list');
+    if (!projects.length) el.innerHTML = '<p class="muted">No public farms published yet.</p>';
+    else el.innerHTML = projects.map(p => `<div class="pub-card">
+      <div style="display:flex;justify-content:space-between;gap:8px"><h3 style="margin:0">${esc(p.name)}</h3>
+        <span class="pill p-live">${esc(p.status)}</span></div>
+      <p style="margin-top:8px">${esc(p.location||'—')} · ${p.capacity_kw} kW · ${p.total_panels} panels</p>
+      <p style="margin-top:8px">${esc(p.description||'')}</p>
+    </div>`).join('');
+  } catch (e) {
+    document.getElementById('prj-list').innerHTML = '<p class="muted">Unable to load farms.</p>';
+  }
+})();
+</script>
+{% endblock %}

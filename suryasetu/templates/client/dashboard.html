@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}My panels — Solan{% endblock %}
+{% block content %}
+<div id="shell">
+  <header class="fingers" style="border-bottom:1px solid var(--edge);padding:12px 20px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;background:var(--wafer2)">
+    <div style="display:flex;align-items:center;gap:10px">
+      <span style="width:27px;height:27px;border:1px solid var(--flux);border-radius:3px;display:flex;align-items:center;justify-content:center;color:var(--flux)">
+        <svg class="ico" style="width:15px;height:15px" viewBox="0 0 24 24"><use href="#i-sun"/></svg>
+      </span>
+      <span class="disp" style="font-weight:700;font-size:14px">SOL<span style="color:var(--flux)">AN</span></span>
+      <span id="hdr-rr" class="mono" style="font-size:11px;color:var(--mute);border-left:1px solid var(--edge2);padding-left:12px;margin-left:4px;display:none"></span>
+    </div>
+    <div style="display:flex;align-items:center;gap:10px">
+      <button id="hdr-alert" class="btn sm" style="display:none;border-color:var(--flux);color:var(--flux)" onclick="gotoTab('project')">
+        <svg class="ico" style="width:14px;height:14px" viewBox="0 0 24 24"><use href="#i-bell"/></svg> Payment due</button>
+      <div style="text-align:right;line-height:1.25">
+        <div id="hdr-name" style="font-size:13px;font-weight:500"></div>
+        <div id="hdr-phone" class="mono" style="font-size:11px;color:var(--mute)"></div>
+      </div>
+      {% include "partials/theme_toggle.html" %}
+      <button class="btn sm" onclick="logout()" aria-label="Sign out" style="padding:8px">
+        <svg class="ico" style="width:14px;height:14px" viewBox="0 0 24 24"><use href="#i-out"/></svg></button>
+    </div>
+  </header>
+  <div id="body-row">
+    <nav id="rail">
+      <div class="rail-sec eyebrow" style="padding:4px 12px 10px">Your connection</div>
+      <div id="rail-nav"></div>
+      <div class="rail-sec" style="margin-top:20px;padding-top:16px;border-top:1px solid var(--edge)">
+        <div class="eyebrow" style="padding:0 12px 10px">Onboarding</div>
+        <div id="rail-onboarding"></div>
+      </div>
+    </nav>
+    <main id="main"></main>
+  </div>
+</div>
+<div id="modal"></div>
+{% endblock %}
+{% block extra_scripts %}
+<script src="/static/js/client.js"></script>
+{% endblock %}

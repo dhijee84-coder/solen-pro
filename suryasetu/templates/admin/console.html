@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}Operations — Solan{% endblock %}
+{% block content %}
+<div id="shell" data-role="{{ role }}">
+  <header class="fingers" style="border-bottom:1px solid var(--edge);padding:12px 20px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;background:var(--wafer2)">
+    <div style="display:flex;align-items:center;gap:10px">
+      <span style="width:27px;height:27px;border:1px solid var(--flux);border-radius:3px;display:flex;align-items:center;justify-content:center;color:var(--flux)">
+        <svg class="ico" style="width:15px;height:15px" viewBox="0 0 24 24"><use href="#i-sun"/></svg>
+      </span>
+      <span class="disp" style="font-weight:700;font-size:14px">SOL<span style="color:var(--flux)">AN</span></span>
+      <span class="mono pill p-live" style="margin-left:6px">{{ role_label }}</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:10px">
+      <div style="position:relative">
+        <input id="global-search" class="field" placeholder="Search clients, panels, tickets…" style="width:220px;padding:8px 12px;font-size:13px" oninput="runGlobalSearch()" aria-label="Global search">
+        <div id="search-results" class="card pad" style="display:none;position:absolute;right:0;top:40px;width:320px;z-index:30;max-height:360px;overflow:auto"></div>
+      </div>
+      <div style="text-align:right;line-height:1.25">
+        <div id="hdr-name" style="font-size:13px;font-weight:500"></div>
+      </div>
+      {% include "partials/theme_toggle.html" %}
+      <button class="btn sm" onclick="logout()" aria-label="Sign out" style="padding:8px">
+        <svg class="ico" style="width:14px;height:14px" viewBox="0 0 24 24"><use href="#i-out"/></svg></button>
+    </div>
+  </header>
+  <div id="body-row">
+    <nav id="rail"><div id="rail-nav"></div></nav>
+    <main id="main"></main>
+  </div>
+</div>
+<div id="modal"></div>
+{% endblock %}
+{% block extra_scripts %}
+<script src="/static/js/console.js"></script>
+{% endblock %}

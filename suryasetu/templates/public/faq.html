@@ -1,0 +1,28 @@
+{% extends "public/base_public.html" %}
+{% block title %}FAQ — Solan{% endblock %}
+{% block content %}
+<section class="page-hero" style="background-image:linear-gradient(90deg,rgba(15,23,42,.82),rgba(15,23,42,.35)),url('/static/img/hero-plant.jpg')">
+  <div class="page-hero-inner">
+    <p class="eyebrow">HELP</p>
+    <h1 class="disp">Frequently asked questions</h1>
+  </div>
+</section>
+<section class="pub-section">
+  <p class="sub">How panel purchase, farm operations and usage billing work. Contact us if your question is not listed.</p>
+  <div id="faq-list"><p class="muted">Loading…</p></div>
+</section>
+{% endblock %}
+{% block extra_scripts %}
+<script>
+(async () => {
+  try {
+    const faqs = await api('/api/public/faqs');
+    const el = document.getElementById('faq-list');
+    if (!faqs.length) el.innerHTML = '<p class="muted">FAQs will appear here once published.</p>';
+    else el.innerHTML = faqs.map(f => `<details class="faq-item"><summary>${esc(f.question)}</summary><p>${esc(f.answer)}</p></details>`).join('');
+  } catch (e) {
+    document.getElementById('faq-list').innerHTML = '<p class="muted">Unable to load FAQs.</p>';
+  }
+})();
+</script>
+{% endblock %}

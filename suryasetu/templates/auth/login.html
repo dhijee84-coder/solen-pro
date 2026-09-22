@@ -1,0 +1,147 @@
+{% extends "base.html" %}
+{% block title %}Sign in — Solan{% endblock %}
+{% block content %}
+<div class="gate hero">
+  <div class="gate-l">
+    <div>
+      <div style="display:flex;align-items:center;gap:10px">
+        <span class="logo-mark">
+          <svg class="ico" style="width:18px;height:18px" viewBox="0 0 24 24"><use href="#i-sun"/></svg>
+        </span>
+        <span class="disp" style="font-weight:700;font-size:17px">SOL<span style="color:var(--flux)">AN</span></span>
+      </div>
+      <h1 class="disp" style="font-size:38px;font-weight:600;margin-top:34px;line-height:1.15;max-width:480px">
+        Buy farm panels. Pay for the energy they generate.</h1>
+      <p style="color:var(--mute);max-width:440px;margin-top:14px">
+        Solan builds solar parks on open land. You purchase panels. We install, maintain and operate
+        everything — nothing goes on your roof. Track generation and usage billing in this portal.</p>
+    </div>
+    <div>
+      <div class="eyebrow">Open-land farms · usage billing</div>
+      <a href="/" style="font-size:12.5px;color:var(--flux);display:inline-block;margin-top:10px">← Public website</a>
+      <a href="/staff-login" style="font-size:12.5px;color:var(--mute);display:inline-block;margin-top:10px;margin-left:14px">Staff / admin sign in →</a>
+    </div>
+  </div>
+
+  <div class="gate-r">
+    <div style="width:100%">
+      <div style="display:flex;justify-content:flex-end;margin-bottom:16px">{% include "partials/theme_toggle.html" %}</div>
+      <div class="seg" style="margin-bottom:26px">
+        <button id="mode-login" class="on" onclick="setMode('login')">Sign in</button>
+        <button id="mode-register" onclick="setMode('register')">Register</button>
+      </div>
+      <h2 class="disp" id="gate-title" style="font-size:25px;font-weight:600;margin-bottom:6px">Sign in with your mobile</h2>
+      <p style="color:var(--mute);font-size:13.5px;margin:0 0 24px">We send a 4-digit code by SMS. No passwords for client accounts.</p>
+
+      <div id="name-field" style="display:none;margin-bottom:16px">
+        <label class="lab" for="f-name">Name as printed on the electricity bill</label>
+        <input id="f-name" class="field" placeholder="R. Vishwanath">
+      </div>
+
+      <label class="lab" for="f-phone">Mobile number</label>
+      <div style="display:flex;border:1px solid var(--edge);border-radius:3px;background:var(--wafer2)">
+        <span class="mono" style="display:flex;align-items:center;padding:0 13px;color:var(--mute);border-right:1px solid var(--edge);font-size:14px">+91</span>
+        <input id="f-phone" class="field" inputmode="numeric" maxlength="10" placeholder="98450 00000"
+          style="border:none;background:transparent;letter-spacing:.06em">
+      </div>
+      <div class="err" id="gate-err"></div>
+
+      <button class="btn flux wide" style="margin-top:16px" onclick="sendCode()" id="send-btn">
+        <svg class="ico" style="width:16px;height:16px" viewBox="0 0 24 24"><use href="#i-phone"/></svg> Send code
+      </button>
+      <p style="font-size:11.5px;color:#5C7794;margin-top:18px">
+        Development build — OTP is fixed at <span class="mono">1234</span> for every number.</p>
+      <div style="margin-top:20px;padding-top:16px;border-top:1px solid var(--edge)">
+        <div class="eyebrow" style="margin-bottom:8px">Demo account (development only)</div>
+        <button class="btn sm wide" type="button" onclick="useDemoClient()"
+          style="background:var(--wafer2);border:1px solid var(--edge);color:var(--ink)">
+          Use Demo Solar Customer
+        </button>
+        <p style="font-size:11px;color:#5C7794;margin-top:8px">
+          Mobile <span class="mono">9999999999</span> · OTP <span class="mono">1234</span>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="otp-modal"></div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+let mode = "login";
+function setMode(m) {
+  mode = m;
+  document.getElementById("mode-login").className = m === "login" ? "on" : "";
+  document.getElementById("mode-register").className = m === "register" ? "on" : "";
+  document.getElementById("gate-title").textContent = m === "register" ? "Create your consumer account" : "Sign in with your mobile";
+  document.getElementById("name-field").style.display = m === "register" ? "block" : "none";
+}
+
+async function sendCode() {
+  const phone = document.getElementById("f-phone").value.replace(/\D/g, "");
+  const err = document.getElementById("gate-err");
+  err.textContent = "";
+  if (phone.length !== 10) { err.textContent = "Enter a valid 10-digit mobile number."; return; }
+  try {
+    const r = await api("/api/auth/otp/send", { method: "POST", body: { phone } });
+    openOtp(phone, r.dev_otp);
+  } catch (e) { err.textContent = e.message; }
+}
+
+function openOtp(phone, devOtp) {
+  const name = document.getElementById("f-name").value;
+  document.getElementById("otp-modal").innerHTML = `
+    <div class="modal-scrim" onclick="if(event.target===this) this.parentElement.innerHTML=''">
+      <div class="sheet rise">
+        <div class="sheet-hd">
+          <div><div class="disp" style="font-weight:600;font-size:16px">Enter the code</div>
+            <div style="color:var(--mute);font-size:12.5px">Sent to +91 ${phone} · dev code is ${devOtp}</div></div>
+          <button class="btn sm bare" onclick="document.getElementById('otp-modal').innerHTML=''">✕</button>
+        </div>
+        <div class="sheet-body">
+          <div style="display:flex;gap:8px;justify-content:center;margin:10px 0 16px">
+            ${[0,1,2,3].map(i => `<input class="otpbox" maxlength="1" inputmode="numeric" id="otp-${i}" oninput="otpNav(${i})">`).join("")}
+          </div>
+          <div class="err" id="otp-err" style="text-align:center"></div>
+          <button class="btn flux wide" onclick="verifyOtp('${phone}','${esc(name)}')">Verify &amp; continue</button>
+        </div>
+      </div>
+    </div>`;
+  document.getElementById("otp-0").focus();
+}
+
+function otpNav(i) {
+  const el = document.getElementById(`otp-${i}`);
+  el.value = el.value.replace(/\D/g, "");
+  if (el.value && i < 3) document.getElementById(`otp-${i+1}`).focus();
+}
+
+async function verifyOtp(phone, name) {
+  const code = [0,1,2,3].map(i => document.getElementById(`otp-${i}`).value).join("");
+  const err = document.getElementById("otp-err");
+  if (code.length < 4) { err.textContent = "Enter all 4 digits."; return; }
+  try {
+    const r = await api("/api/auth/otp/verify", { method: "POST", body: { phone, code, full_name: name } });
+    window.location.href = "/client/dashboard";
+  } catch (e) { err.textContent = e.message; }
+}
+
+async function useDemoClient() {
+  const phone = "9999999999";
+  const err = document.getElementById("gate-err");
+  err.textContent = "";
+  try {
+    await api("/api/auth/otp/send", { method: "POST", body: { phone } });
+    const r = await api("/api/auth/otp/verify", {
+      method: "POST",
+      body: { phone, code: "1234", full_name: "Demo Solar Customer" },
+    });
+    window.location.href = "/client/dashboard";
+  } catch (e) {
+    err.textContent = e.message || "Demo login failed. Run scripts/seed.py first.";
+  }
+}
+</script>
+{% endblock %}

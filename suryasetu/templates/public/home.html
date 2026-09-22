@@ -1,0 +1,197 @@
+{% extends "public/base_public.html" %}
+{% block title %}Solan — Buy panels on our farm. Pay for the energy you use.{% endblock %}
+{% block content %}
+<section id="top" class="acme-hero" data-hero>
+  <button class="hero-arrow left" type="button" data-hero-prev aria-label="Previous slide">‹</button>
+  <div class="acme-hero-copy">
+    <p class="eyebrow" id="hero-kicker">SOLAN</p>
+    <h1 id="hero-heading">You buy the panels. We run the farm.</h1>
+    <p id="hero-desc">Solan builds solar parks on open land. Clients purchase panels there. We install, maintain and operate everything — and you pay for the energy those panels generate.</p>
+    <a class="pill-button" href="/login" id="hero-cta">Buy panels</a>
+  </div>
+  <button class="hero-arrow right" type="button" data-hero-next aria-label="Next slide">›</button>
+  <div class="dots" data-hero-dots></div>
+</section>
+
+<section class="pub-section">
+  <div class="intro-grid">
+    <div><img src="/static/img/hero-farm.jpg" alt="Solan solar farm on open land"></div>
+    <div>
+      <p class="eyebrow blue">WHO WE ARE</p>
+      <h2 class="disp">Solan</h2>
+      <p id="about-blurb">Solan is not a rooftop installer. We develop solar farms on empty land, sell panel capacity to clients, and keep the plant running. Your panels stay on our site. Your portal shows generation, usage billing, warranty and support.</p>
+      <p>No work on your house. No roof mounting. We own the land and the operations. You own the panels and the energy they produce.</p>
+      <a class="text-link" href="/about" style="color:var(--sky);font-weight:700;display:inline-block;margin-top:16px">Know more →</a>
+    </div>
+  </div>
+</section>
+
+<section id="business" class="portfolio-band">
+  <div class="portfolio-inner">
+    <div class="portfolio-copy">
+      <p class="eyebrow blue">THE MODEL</p>
+      <h2 class="disp">Energy billed on usage</h2>
+      <p class="muted">Buy a block of panels at a Solan farm. We commission and maintain them. You see daily generation and pay for the energy those panels actually produce.</p>
+      <div class="metrics">
+        <div><strong>Our land</strong><span>Farms on open sites</span></div>
+        <div><strong>Your panels</strong><span>Purchased capacity</span></div>
+        <div><strong>Our ops</strong><span>Install + maintenance</span></div>
+      </div>
+    </div>
+    <img src="/static/img/hero-plant.jpg" alt="Solan plant operations">
+  </div>
+</section>
+
+<section class="pub-section">
+  <div class="section-heading">
+    <p class="eyebrow blue">WHAT WE DO</p>
+    <h2 class="disp">Farm-side solar, end to end</h2>
+  </div>
+  <div class="solution-grid">
+    <article class="solution-card">
+      <img src="/static/img/hero-cells.jpg" alt="Photovoltaic modules">
+      <div>
+        <h3>Panel sales</h3>
+        <p>Buy serial-tracked modules from live farm inventory. Capacity is allocated fairly from available stock.</p>
+        <a href="/solar">Learn more →</a>
+      </div>
+    </article>
+    <article class="solution-card">
+      <img src="/static/img/hero-farm.jpg" alt="Open-land solar farm">
+      <div>
+        <h3>Farm operations</h3>
+        <p>We install, inspect, connect and maintain every panel on our land. Nothing is mounted on your house.</p>
+        <a href="/how-it-works">Learn more →</a>
+      </div>
+    </article>
+    <article class="solution-card">
+      <img src="/static/img/hero-plant.jpg" alt="Generation monitoring">
+      <div>
+        <h3>Usage billing</h3>
+        <p>Track generation from your panels and pay for the energy used. Warranty and tickets stay in your portal.</p>
+        <a href="/login">Client login →</a>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="impact-band">
+  <div class="pub-section" style="padding-bottom:36px">
+    <div class="section-heading">
+      <p class="eyebrow blue">WHY SOLAN</p>
+      <h2 class="disp">Own solar without owning a rooftop</h2>
+    </div>
+  </div>
+  <div class="impact-grid">
+    <div class="impact-stat"><strong>Open land</strong><p>Farms built on empty sites we operate</p></div>
+    <div class="impact-stat"><strong>No rooftop</strong><p>Nothing installed on your house</p></div>
+    <div class="impact-stat"><strong>We maintain</strong><p>Cleaning, repairs and warranty by Solan</p></div>
+    <div class="impact-stat"><strong>Usage billed</strong><p>Pay for energy your panels generate</p></div>
+    <div class="impact-stat"><strong>Portal</strong><p>KYC, payments, generation, support</p></div>
+  </div>
+</section>
+
+<section class="pub-section" id="public-projects-section">
+  <div class="section-heading">
+    <p class="eyebrow blue">FARMS</p>
+    <h2 class="disp">Public solar sites</h2>
+  </div>
+  <p class="sub" style="margin-left:auto;margin-right:auto;text-align:center">Only farms marked public are listed. Private client and payment data stays in the portal.</p>
+  <div class="pub-grid" id="home-projects"><p class="muted">Loading farms…</p></div>
+</section>
+
+<section class="pub-section" id="public-services-section" style="padding-top:0">
+  <div class="section-heading">
+    <p class="eyebrow blue">SERVICES</p>
+    <h2 class="disp">What we operate for you</h2>
+  </div>
+  <div class="pub-grid" id="home-services"><p class="muted">Loading services…</p></div>
+</section>
+
+<section id="contact" class="cta-band">
+  <p class="eyebrow">GET IN TOUCH</p>
+  <h2 class="disp">Ready to buy farm panels?</h2>
+  <p class="muted">Create a client account or talk to us about capacity at an active Solan site.</p>
+  <a class="pill-button" href="/contact">Reach out</a>
+  <div style="margin-top:16px"><a class="btn" href="/login">Client Login / Register</a></div>
+</section>
+{% endblock %}
+{% block extra_scripts %}
+<script>
+const HERO_SLIDES = [
+  {
+    kicker: "SOLAN",
+    title: "You buy the panels.<br>We run the farm.",
+    body: "Solan builds solar parks on <b>open land</b>. Clients purchase panels. We install, maintain and operate everything.",
+    image: "/static/img/hero-farm.jpg",
+    cta: "See our farms",
+    href: "/projects"
+  },
+  {
+    kicker: "NO ROOFTOP",
+    title: "Energy billed on<br>what you use",
+    body: "Your panels stay on our site. You track generation in the portal and pay for the energy those panels produce.",
+    image: "/static/img/hero-plant.jpg",
+    cta: "How it works",
+    href: "/how-it-works"
+  },
+  {
+    kicker: "WE MAINTAIN",
+    title: "Own solar without<br>owning a roof",
+    body: "Cleaning, repairs, warranty and grid operations are Solan’s job. You own the capacity — not the construction risk.",
+    image: "/static/img/hero-cells.jpg",
+    cta: "Buy panels",
+    href: "/login"
+  }
+];
+(function heroSlider() {
+  const root = document.querySelector("[data-hero]");
+  if (!root) return;
+  let i = 0;
+  const heading = document.getElementById("hero-heading");
+  const desc = document.getElementById("hero-desc");
+  const kicker = document.getElementById("hero-kicker");
+  const cta = document.getElementById("hero-cta");
+  const dots = document.querySelector("[data-hero-dots]");
+  dots.innerHTML = HERO_SLIDES.map((_, n) => `<button type="button" aria-label="Go to slide ${n+1}"></button>`).join("");
+  function paint() {
+    const s = HERO_SLIDES[i];
+    root.style.backgroundImage = `linear-gradient(90deg, rgba(15,23,42,.78), rgba(15,23,42,.18)), url('${s.image}')`;
+    kicker.textContent = s.kicker;
+    heading.innerHTML = s.title;
+    desc.innerHTML = s.body;
+    cta.textContent = s.cta;
+    cta.href = s.href;
+    [...dots.children].forEach((b, n) => b.classList.toggle("active", n === i));
+  }
+  dots.addEventListener("click", (e) => {
+    const n = [...dots.children].indexOf(e.target);
+    if (n >= 0) { i = n; paint(); }
+  });
+  document.querySelector("[data-hero-prev]").onclick = () => { i = (i + HERO_SLIDES.length - 1) % HERO_SLIDES.length; paint(); };
+  document.querySelector("[data-hero-next]").onclick = () => { i = (i + 1) % HERO_SLIDES.length; paint(); };
+  paint();
+  setInterval(() => { i = (i + 1) % HERO_SLIDES.length; paint(); }, 7000);
+})();
+(async () => {
+  try {
+    const s = await api("/api/public/settings");
+    if (s.section_projects === "off") document.getElementById("public-projects-section").style.display = "none";
+    if (s.section_services === "off") document.getElementById("public-services-section").style.display = "none";
+    if (s.about_body) document.getElementById("about-blurb").textContent = s.about_body;
+  } catch (e) {}
+  try {
+    const projects = await api("/api/public/projects");
+    const el = document.getElementById("home-projects");
+    if (!projects.length) el.innerHTML = "<p class='muted'>Public farms will appear here when published.</p>";
+    else el.innerHTML = projects.slice(0,3).map(p => `<div class="pub-card"><h3>${esc(p.name)}</h3><p>${esc(p.location||"")} · ${p.capacity_kw} kW · ${p.status}</p><p style="margin-top:8px">${esc(p.description||"")}</p></div>`).join("");
+  } catch (e) { document.getElementById("home-projects").innerHTML = "<p class='muted'>Unable to load farms.</p>"; }
+  try {
+    const services = await api("/api/public/services");
+    const el = document.getElementById("home-services");
+    if (!services.length) el.innerHTML = "<p class='muted'>Services coming soon.</p>";
+    else el.innerHTML = services.map(s => `<div class="pub-card"><h3>${esc(s.name)}</h3><p>${esc(s.description||"")}</p></div>`).join("");
+  } catch (e) {}
+})();
+</script>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends "public/base_public.html" %}
+{% block title %}How it works — Solan{% endblock %}
+{% block content %}
+<section class="page-hero" style="background-image:linear-gradient(90deg,rgba(15,23,42,.82),rgba(15,23,42,.35)),url('/static/img/hero-plant.jpg')">
+  <div class="page-hero-inner">
+    <p class="eyebrow">THE JOURNEY</p>
+    <h1 class="disp">How Solan works</h1>
+  </div>
+</section>
+<section class="pub-section">
+  <p class="sub">You buy panels on our farm. We run the plant. You pay for the energy those panels generate. Nothing is installed on your house.</p>
+  <div class="pub-steps">
+    <div class="pub-step"><div><strong>Register</strong><p class="muted">Create a client account with your mobile number and OTP.</p></div></div>
+    <div class="pub-step"><div><strong>Complete KYC</strong><p class="muted">PAN and Aadhaar so panel ownership is in your name.</p></div></div>
+    <div class="pub-step"><div><strong>Share usage</strong><p class="muted">Electricity bill details help size how many farm panels you need.</p></div></div>
+    <div class="pub-step"><div><strong>Choose a farm</strong><p class="muted">You are linked to an active Solan site on open land.</p></div></div>
+    <div class="pub-step"><div><strong>Buy panels</strong><p class="muted">Available modules are allocated from farm inventory (first-in, first-out).</p></div></div>
+    <div class="pub-step"><div><strong>We install on our land</strong><p class="muted">Solan crews mount, cable and commission your panels at the farm — never on your roof.</p></div></div>
+    <div class="pub-step"><div><strong>Pay for the panels</strong><p class="muted">Milestone payments for the purchase; farm work stays our job.</p></div></div>
+    <div class="pub-step"><div><strong>Grid & handover</strong><p class="muted">Inspection and grid connection at the farm. You receive generation rights.</p></div></div>
+    <div class="pub-step"><div><strong>Energy on usage</strong><p class="muted">Track daily generation. You are billed for the energy your panels produce.</p></div></div>
+    <div class="pub-step"><div><strong>We maintain</strong><p class="muted">Cleaning, repairs, warranty claims and support are handled by Solan.</p></div></div>
+  </div>
+  <p style="margin-top:24px"><a class="pill-button" href="/login">Start as a client</a></p>
+</section>
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends "public/base_public.html" %}
+{% block title %}Services — Solan{% endblock %}
+{% block content %}
+<section class="page-hero" style="background-image:linear-gradient(90deg,rgba(15,23,42,.82),rgba(15,23,42,.35)),url('/static/img/hero-farm.jpg')">
+  <div class="page-hero-inner">
+    <p class="eyebrow">SERVICES</p>
+    <h1 class="disp">We operate. You own the panels.</h1>
+  </div>
+</section>
+<section class="pub-section">
+  <p class="sub">Farm operations, maintenance and support for clients who have purchased Solan panels. No rooftop installation services — we do not work on houses.</p>
+  <div class="pub-grid" id="svc-list"><p class="muted">Loading…</p></div>
+</section>
+{% endblock %}
+{% block extra_scripts %}
+<script>
+(async () => {
+  try {
+    const services = await api('/api/public/services');
+    const el = document.getElementById('svc-list');
+    if (!services.length) el.innerHTML = '<p class="muted">No public services listed yet.</p>';
+    else el.innerHTML = services.map(s => `<div class="pub-card"><h3>${esc(s.name)}</h3><p>${esc(s.description||'')}</p></div>`).join('');
+  } catch (e) {
+    document.getElementById('svc-list').innerHTML = '<p class="muted">Unable to load services.</p>';
+  }
+})();
+</script>
+{% endblock %}
